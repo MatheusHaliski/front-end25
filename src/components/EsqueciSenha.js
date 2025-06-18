@@ -11,7 +11,7 @@ function EsqueciSenha() {
         event.preventDefault();
 
         try {
-            const response = await fetch("http://localhost:8080/auth/forgetpassword", {
+            const response = await fetch("http://backend-25v2.onrender.com/auth/forgetpassword", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
