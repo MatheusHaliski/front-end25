@@ -91,7 +91,7 @@ function RegistrarUsuario() {
                 formData.append("imagemPerfil", imagem);
             }
 
-            const response = await fetch("https://backend-25v2.onrender.com/pessoas", {
+            const response = await fetch("http://backend-25v2.onrender.com/pessoas", {
                 method: "POST",
                 body: formData
             });
