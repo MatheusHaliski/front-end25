@@ -20,7 +20,7 @@ function MenuInicial() {
         } else {
             setEmailUsuario(email);
 
-            fetch(`http://backend-25v2.onrender.com/pessoas/${email}/imagem`, {
+            fetch(`https://backend-25v2.onrender.com/pessoas/${email}/imagem`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
