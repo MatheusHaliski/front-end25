@@ -11,11 +11,11 @@ const Dashboard = () => {
     const cores = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042", "#8dd1e1", "#a4de6c", "#d0ed57", "#ffc0cb"];
 
     useEffect(() => {
-        axios.get("http://localhost:8080/dashboard/doacoes-por-usuario")
+        axios.get("http://backend-25v2.onrender.com/dashboard/doacoes-por-usuario")
             .then(res => setDoacoesUsuario(res.data));
 
 
-        axios.get("http://localhost:8080/dashboard/itens-por-usuario")
+        axios.get("http://backend-25v2.onrender.com0/dashboard/itens-por-usuario")
             .then(res => setItensUsuario(res.data));
 
 
