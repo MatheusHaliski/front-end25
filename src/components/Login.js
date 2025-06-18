@@ -5,14 +5,20 @@ import Swal from "sweetalert2";
 import "./Login.css";
 import Header from "./Header";
 import Footer from "./Footer";
+import img55 from '../assets/bg-register.jpg';
 import EsqueciSenha from "./EsqueciSenha";
-
+import { FaBookOpen, FaHeartbeat, FaLeaf, FaDollarSign } from "react-icons/fa";
 function Login() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [mostrarSenha, setMostrarSenha] = useState(false);
     const navigate = useNavigate();
-
+    const areas = [
+        { name: "Educação", icon: <FaBookOpen size={28} /> },
+        { name: "Saúde", icon: <FaHeartbeat size={28} /> },
+        { name: "Meio Ambiente", icon: <FaLeaf size={28} /> },
+        { name: "Economia", icon: <FaDollarSign size={28} /> },
+    ];
     const validarEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     const validarSenha = (senha) => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(senha);
 
@@ -34,27 +40,31 @@ function Login() {
 
         const formData = new URLSearchParams();
         formData.append("email", email);
-        formData.append("password", senha);
+        formData.append("senha", senha);
 
         try {
-            const response = await fetch("http://localhost:8080/pessoas/pessoas12", {
+            const response = await fetch("http://localhost:8080/auth/login", {
                 method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: formData.toString(),
-                credentials: "include"
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, senha }),
             });
+
 
             if (response.ok) {
                 const data = await response.json();
+
+                // Salvar o token no sessionStorage/localStorage
+                sessionStorage.setItem("token", data.token);
                 sessionStorage.setItem("emailUsuario", email);
                 sessionStorage.setItem("tipoUsuario", data.tipoUsuario);
+
                 exibirSucesso("Login realizado com sucesso!");
+
                 setTimeout(() => {
                     navigate(data.tipoUsuario === "USUARIO_ADM" ? "/MenuInicial2" : "/MenuInicial");
                 }, 1500);
             } else if (response.status === 401) {
-                const erro = await response.json();
-                exibirErro(erro.erro || "Email ou senha inválidos.");
+                exibirErro("Email ou senha inválidos.");
             } else {
                 const erro = await response.text();
                 exibirErro("Erro no login: " + erro);
@@ -65,29 +75,43 @@ function Login() {
         }
     };
 
+
     return (
         <div className="d-flex flex-column min-vh-100">
             <Header />
             <div className="flex-grow-1 d-flex align-items-center justify-content-center bg-light">
-                <div className="row w-100 shadow-lg rounded" style={{ maxWidth: "1200px", backgroundColor: "white", minHeight: "80vh" }}>
+                <div
+                    className="row w-100 shadow-lg rounded"
+                    style={{
+                        maxWidth: "1500px",
+                        backgroundColor: "white",
+                        minHeight: "80vh",
+                        overflow: "hidden",
+                    }}
+                >
                     {/* Lado esquerdo com imagem */}
-                    <div className="col-md-6 d-none d-md-block p-0">
+                    <div className="col-md-6">
                         <div
                             style={{
                                 height: "100%",
-                                backgroundImage: "url('assets/btn-register04.jpeg')",
+                                backgroundImage: "url('/assets/hh7.png')",
                                 backgroundSize: "cover",
-                                backgroundPosition: "center",
+                                backgroundPosition: "center -10%",
                                 borderTopLeftRadius: "0.5rem",
-                                borderBottomLeftRadius: "0.5rem"
+                                borderBottomLeftRadius: "0.5rem",
                             }}
-                        ></div>
+
+                        />
                     </div>
 
                     {/* Lado direito com formulário */}
-                    <div className="col-md-6 p-5 d-flex flex-column justify-content-center">
+                    <div
+                        className="col-md-6 d-flex flex-column justify-content-center"
+                        style={{ padding: "3rem" }}
+                    >
                         <h2 className="mb-4 text-center text-black">Login</h2>
                         <form onSubmit={handleSubmit}>
+                            {/* Campos do formulário */}
                             <div className="mb-3">
                                 <input
                                     type="email"
@@ -115,36 +139,153 @@ function Login() {
                                         right: "15px",
                                         transform: "translateY(-50%)",
                                         cursor: "pointer",
-                                        color: "#6c757d"
+                                        color: "#6c757d",
                                     }}
                                 >
-                                    {mostrarSenha ? <FaEyeSlash /> : <FaEye />}
-                                </span>
+                {mostrarSenha ? <FaEyeSlash /> : <FaEye />}
+              </span>
                             </div>
-                            <div className="d-grid">
-                                <button type="submit" className="btn btn-primary">Entrar</button>
+                            <div className="d-grid mb-4">
+                                <button type="submit" className="btn btn-primary">
+                                    Entrar
+                                </button>
                             </div>
                         </form>
 
-                        <div className="mt-3 text-center">
-                        <span
-                            onClick={handleEsqueciSenha}
-                            className="text-decoration-none text-primary"
-                            style={{ cursor: "pointer" }}
+                        {/* Links abaixo do formulário */}
+                        <div className="text-center mb-4">
+            <span
+                onClick={handleEsqueciSenha}
+                className="text-decoration-none text-primary"
+                style={{ cursor: "pointer" }}
+            >
+              Esqueci minha senha
+            </span>
+                            <br />
+                            <Link
+                                to="/registrarusuario"
+                                className="text-decoration-none text-success"
                             >
-                        Esqueci minha senha
-                        </span>
-                            <br/>
-                            <Link to="/registrarusuario" className="text-decoration-none text-success">
                                 Criar nova conta
                             </Link>
                         </div>
                     </div>
                 </div>
             </div>
+            {/* SEÇÃO "Sua doação faz a diferença!" E DEPOIMENTOS */}
+            <div className="container my-5">
+                <div
+                    className="shadow-lg rounded p-4 mb-5"
+                    style={{ backgroundColor: "white" }}
+                >
+                    <h2 className="fw-bold mb-3 text-center">
+                        Veja como sua doação faz a diferença!
+                    </h2>
+                    <p className="text-center">
+                        Sua contribuição mensal ajuda a transformar vidas, oferecendo acesso a
+                        equipamentos eletrônicos para quem mais precisa.
+                    </p>
+
+                    {/* BLOQUINHOS DE ÁREAS DE APOIO */}
+                    <div className="d-flex justify-content-center flex-wrap gap-4 mt-4">
+                        {areas.map(({ name, icon }) => (
+                            <div
+                                key={name}
+                                className="shadow-sm rounded d-flex flex-column align-items-center justify-content-center"
+                                style={{
+                                    width: "140px",
+                                    height: "110px",
+                                    backgroundColor: "#007bff",
+                                    color: "white",
+                                    fontWeight: "bold",
+                                    fontSize: "1.1rem",
+                                    cursor: "pointer",
+                                    userSelect: "none",
+                                    padding: "12px",
+                                    transition: "all 0.3s ease",
+                                    boxShadow: "0 4px 12px rgba(0, 123, 255, 0.3)",
+                                }}
+                                onClick={() => alert(`Obrigado por apoiar a causa de ${name}!`)}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.backgroundColor = "#0056b3";
+                                    e.currentTarget.style.boxShadow = "0 6px 18px rgba(0, 86, 179, 0.6)";
+                                    e.currentTarget.style.transform = "scale(1.05)";
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.backgroundColor = "#007bff";
+                                    e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 123, 255, 0.3)";
+                                    e.currentTarget.style.transform = "scale(1)";
+                                }}
+                            >
+                                {icon}
+                                <span style={{ marginTop: "8px" }}>{name}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Depoimentos */}
+                <div className="shadow-lg rounded p-4" style={{ backgroundColor: "white" }}>
+                    <h5 className="text-center mb-3 text-black">Depoimentos</h5>
+
+                    {/* Depoimento 1 */}
+                    <div
+                        className="border rounded p-3 mb-3 d-flex align-items-center"
+                        style={{ gap: "15px" }}
+                    >
+                        <img
+                            src="/assets/ana.png"  // substitua pelo caminho correto da foto
+                            alt="Ana"
+                            style={{
+                                width: "60px",
+                                height: "60px",
+                                borderRadius: "50%",
+                                objectFit: "cover",
+                                flexShrink: 0,
+                            }}
+                        />
+                        <div>
+                            <p className="mb-1 fst-italic" style={{ color: "#333" }}>
+                                "Conseguir um computador me ajudou a estudar e a buscar melhores
+                                oportunidades. Sou muito grato!"
+                            </p>
+                            <small style={{ color: "#555" }}>- João, beneficiário</small>
+                        </div>
+                    </div>
+
+                    {/* Depoimento 2 */}
+                    <div
+                        className="border rounded p-3 mb-3 d-flex align-items-center"
+                        style={{ gap: "15px" }}
+                    >
+                        <img
+                            src="/assets/carlos.png"  // substitua pelo caminho correto da foto
+                            alt="Carlos"
+                            style={{
+                                width: "60px",
+                                height: "60px",
+                                borderRadius: "50%",
+                                objectFit: "cover",
+                                flexShrink: 0,
+                            }}
+                        />
+                        <div>
+                            <p className="mb-1 fst-italic" style={{ color: "#333" }}>
+                                "Apoiar esta ONG é saber que estou ajudando a levar tecnologia para quem mais precisa."
+                            </p>
+                            <small style={{ color: "#555" }}>- Carlos, doador</small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
             <Footer />
         </div>
     );
+
+
+
 }
 
 const handleEsqueciSenha = async (navigate) => {

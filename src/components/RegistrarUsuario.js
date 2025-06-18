@@ -91,7 +91,7 @@ function RegistrarUsuario() {
                 formData.append("imagemPerfil", imagem);
             }
 
-            const response = await fetch("http://localhost:8080/pessoas/pessoas1", {
+            const response = await fetch("http://localhost:8080/pessoas", {
                 method: "POST",
                 body: formData
             });

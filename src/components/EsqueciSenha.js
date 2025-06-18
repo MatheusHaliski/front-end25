@@ -11,7 +11,7 @@ function EsqueciSenha() {
         event.preventDefault();
 
         try {
-            const response = await fetch("http://localhost:8080/pessoas/redefinir-senha", {
+            const response = await fetch("http://localhost:8080/auth/forgetpassword", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",

@@ -66,7 +66,7 @@ function AlterarPerfil() {
             formData.append("imagemPerfil", imagemPerfil);
         }
 
-        fetch("http://localhost:8080/salvar-dados-perfil", {
+        fetch("http://localhost:8080/perfil", {
             method: "POST",
             body: formData
         })
@@ -75,9 +75,10 @@ function AlterarPerfil() {
                     Swal.fire({
                         icon: 'success',
                         title: 'Sucesso!',
-                        text: 'Dados alterados com sucesso!',
+                        text: 'Dados alterados sucesso!',
                         confirmButtonText: 'OK'
                     }).then(() => {
+                        navigate("/menuinicial");
                         const tipodeusuario1 = sessionStorage.getItem("tipoUsuario");
                         if (tipodeusuario1 === 'USUARIO_COMUM') {
                             navigate("/MenuInicial");

@@ -20,7 +20,7 @@ const ListaDoacoesRecebidas = () => {
             setTipoUsuario(tipo);
         }
 
-        fetch(`http://localhost:8080/visualizar-todas-doacoes`)
+        fetch(`http://localhost:8080/doacoes`)
             .then(response => response.json())
             .then(data => {
                 console.log("Dados recebidos:", data);
@@ -61,9 +61,9 @@ const ListaDoacoesRecebidas = () => {
                             <td>{doacao.descricao}</td>
                             <td>{doacao.quantidade}</td>
                             <td>
-                                {doacao.imagemObjeto ? (
+                                {doacao.imagemUrl ? (
                                     <img
-                                        src={`data:image/jpeg;base64,${doacao.imagemObjeto}`}
+                                        src={doacao.imagemUrl}
                                         alt="Imagem do objeto"
                                         style={{ width: '100px', height: 'auto', objectFit: 'cover', borderRadius: '5px' }}
                                     />
@@ -71,6 +71,7 @@ const ListaDoacoesRecebidas = () => {
                                     <span>Sem imagem</span>
                                 )}
                             </td>
+
                         </tr>
                     ))}
                     </tbody>

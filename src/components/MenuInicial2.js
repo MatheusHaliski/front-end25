@@ -17,7 +17,7 @@ function MenuInicial() {
             navigate('/login');
         } else {
             setEmailUsuario(email);
-            fetch(`http://localhost:8080/pessoas/${email}/imagemPerfil`)
+            fetch(`http://localhost:8080/pessoas/${email}/imagem`)
                 .then(response => {
                     if (response.ok) {
                         return response.blob();
@@ -91,29 +91,34 @@ function MenuInicial() {
             <div className="container mt-4 mb-5">
                 <div className="card-grid">
                     <CardMenu
-                        image="assets/doacao.png"
+                        image="assets/a3.png"
                         text="Realizar Doação - Clique aqui para doar um equipamento eletrônico"
                         onClick={() => navigate('/realizar-doacao')}
                     />
                     <CardMenu
-                        image="assets/listdoacao.jpeg"
+                        image="assets/a.jpeg"
                         text="Visualizar Minhas Doações - Clique para visualizar suas doações"
                         onClick={() => navigate('/visualizar-minhas-doacoes')}
                     />
                     <CardMenu
-                        image="assets/listdoacao.jpeg"
+                        image="assets/a2.png"
                         text="Visualizar Todas as doações - Clique para visualizar doações de todos os usuários"
                         onClick={() => navigate('/visualizar-doacoes-recebidas')}
                     />
                     <CardMenu
-                        image="assets/listdoacao.jpeg"
+                        image="assets/imgg.png"
                         text="Visualizar doadores(pessoas) cadastradas - Clique para visualizar doadores cadastrados"
                         onClick={() => navigate('/visualizar-doadores-lista')}
                     />
                     <CardMenu
-                        image="assets/changeprofile.jpeg"
+                        image="assets/altp.png"
                         text="Alterar Dados de Perfil - Clique aqui para alterar seus dados de perfil"
                         onClick={() => navigate('/form-alterar-perfil')}
+                    />
+                    <CardMenu
+                        image="assets/a9.png"
+                        text="Visualizar Dashboards"
+                        onClick={() => navigate('/relatorio')}
                     />
                 </div>
             </div>
