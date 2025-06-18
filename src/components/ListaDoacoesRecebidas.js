@@ -20,7 +20,7 @@ const ListaDoacoesRecebidas = () => {
             setTipoUsuario(tipo);
         }
 
-        fetch(`http://backend-25v2.onrender.com/doacoes`)
+        fetch(`https://backend-25v2.onrender.com/doacoes`)
             .then(response => response.json())
             .then(data => {
                 console.log("Dados recebidos:", data);
