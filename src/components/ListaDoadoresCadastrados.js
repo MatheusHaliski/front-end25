@@ -17,7 +17,7 @@ const ListaDoadoresCadastrados = () => {
         } else {
             setEmailUsuario(email);
         }
-        fetch(`http://localhost:8080/doacoes/doadores`)
+        fetch(`http://backend-25v2.onrender.com/doacoes/doadores`)
             .then(response => response.json())
             .then(data => {
                 console.log("Dados recebidos:", data);
