@@ -10,15 +10,15 @@ function Relatorios() {
     const [itensPorCategoria, setItensPorCategoria] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:8080/relatorio/doacoes-por-usuario")
+        fetch("http://backend-25v2.onrender.com/relatorio/doacoes-por-usuario")
             .then(res => res.json())
             .then(data => setDoacoesPorUsuario(data));
 
-        fetch("http://localhost:8080/relatorio/itens-por-descricao")
+        fetch("http://backend-25v2.onrender.com/relatorio/itens-por-descricao")
             .then(res => res.json())
             .then(data => setItensPorDescricao(data));
 
-        fetch("http://localhost:8080/relatorio/itens-por-categoria")
+        fetch("http://backend-25v2.onrender.com/relatorio/itens-por-categoria")
             .then(res => res.json())
             .then(data => setItensPorCategoria(data));
     }, []);
