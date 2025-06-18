@@ -12,7 +12,7 @@ const DoacaoForm = () => {
     useEffect(() => {
         const listarProdutos = async () => {
             try {
-                const response = await fetch('http://localhost:8080/produtos');
+                const response = await fetch('http://backend-25v2.onrender.com/produtos');
                 if (!response.ok) {
                     throw new Error('Erro na resposta da API');
                 }
@@ -50,7 +50,7 @@ const DoacaoForm = () => {
         formData.append('imagem_url', produtoSelecionado.imagem_url || '');
 
         try {
-            const response = await fetch('http://localhost:8080/doacoes', {
+            const response = await fetch('http://backend-25v2.onrender.com/doacoes', {
                 method: 'POST',
                 body: formData,
             });
