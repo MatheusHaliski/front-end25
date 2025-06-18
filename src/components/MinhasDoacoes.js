@@ -17,7 +17,7 @@ const MinhasDoacoes = () => {
         } else {
             setEmailUsuario(email);
 
-            fetch(`http://backend-25v2.onrender.com/doacoes/usuario?email=${encodeURIComponent(email)}`)
+            fetch(`https://backend-25v2.onrender.com/doacoes/usuario?email=${encodeURIComponent(email)}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log("Dados recebidos:", data);
