@@ -66,7 +66,7 @@ function AlterarPerfil() {
             formData.append("imagemPerfil", imagemPerfil);
         }
 
-        fetch("http://localhost:8080/perfil", {
+        fetch("http://backend-25v2.onrender.com/perfil", {
             method: "POST",
             body: formData
         })
