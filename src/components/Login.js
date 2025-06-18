@@ -43,7 +43,7 @@ function Login() {
         formData.append("senha", senha);
 
         try {
-            const response = await fetch("https://localhost:8080/auth/login", {
+            const response = await fetch("http://localhost:8080/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, senha }),
@@ -305,7 +305,7 @@ const handleEsqueciSenha = async (navigate) => {
 
     if (email) {
         try {
-            const response = await fetch("http://backend-25v2.onrender.com/pessoas/redefinir-senha", {
+            const response = await fetch("http://localhost:8080/pessoas/redefinir-senha", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
